@@ -29,9 +29,9 @@ body {
     position: fixed;
     display: block;
     color: white;
-    top: 18px;
+    top: 15px;
     left: 20px;
-    font-size: 20px;
+    font-size: 26px;
 }
 
 .nav-wrapper ul {
