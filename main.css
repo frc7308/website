@@ -60,3 +60,17 @@ body {
 .nav-wrapper li a:hover {
     background-color: #276ad8;
 }
+
+.outlinedsection {
+    width: 85%;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 40px;
+    border-style: solid;
+    border-radius: 10px;
+}
+
+.outlinedsection p {
+    margin: 0;
+    padding: 20px;
+}
