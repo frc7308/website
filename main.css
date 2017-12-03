@@ -95,9 +95,11 @@ body {
     position: relative;
     margin: 0 auto;
     font-size: 30px;
+    margin-bottom: 40px;
 }
 
 .normalsection p {
+    text-align: center;
     margin: 0;
     padding: 0;
 }
