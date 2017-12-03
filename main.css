@@ -89,3 +89,15 @@ body {
     margin: 0;
     padding: 20px;
 }
+
+.normalsection {
+    width: 85%;
+    position: relative;
+    margin: 0 auto;
+    font-size: 30px;
+}
+
+.normalsection p {
+    margin: 0;
+    padding: 0;
+}
