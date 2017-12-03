@@ -90,7 +90,7 @@ body {
     padding: 20px;
 }
 
-.normalsection {
+.textsection {
     width: 85%;
     position: relative;
     margin: 0 auto;
@@ -98,7 +98,7 @@ body {
     margin-bottom: 40px;
 }
 
-.normalsection p {
+.textsection p {
     text-align: center;
     margin: 0;
     padding: 0;
