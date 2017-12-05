@@ -1,1 +1,1 @@
-Document.getElementByID("nav-wrapper");
+document.getElementByID("nav-wrapper");
