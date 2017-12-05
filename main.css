@@ -84,17 +84,31 @@ body {
     border-radius: 10px;
     margin-bottom: 40px;
 }
-
+\
 .outlinedsection p {
     margin: 0;
     padding: 20px;
+}
+
+.largetextsection {
+    width: 85%;
+    position: relative;
+    margin: 0 auto;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+.largetextsection p {
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 .textsection {
     width: 85%;
     position: relative;
     margin: 0 auto;
-    font-size: 30px;
+    font-size: 20px;
     margin-bottom: 40px;
 }
 
