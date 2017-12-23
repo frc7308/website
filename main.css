@@ -84,7 +84,7 @@ body {
     border-radius: 10px;
     margin-bottom: 40px;
 }
-\
+
 .outlinedsection p {
     margin: 0;
     padding: 20px;
@@ -140,4 +140,114 @@ body {
 .headerimgbuffer {
     width: 100%;
     height: 200px;
+}
+
+.maindiv {
+    margin: 0 auto;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    padding: 10px;
+}
+
+.normalbutton {
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    background-color: #9b46fc;
+    color: white;
+    border: none;
+}
+
+input {
+    font-size: 20px;
+}
+
+.codetask {
+    background-color: white;
+    margin: 0 auto;
+    width: 350px;
+    height: 40px;
+    border-left: solid;
+    border-radius: 8px;
+    border-color: blue;
+    border-width: 8px;
+    margin-bottom: 20px;
+    margin-top: -20px;
+}
+
+.codetask p {
+    text-align: left;
+    padding-left: 10px;
+    font-size: 30px;
+    padding-top: 3px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.loading {
+    width: 330px;
+}
+
+.taskdiv {
+    width: 48%;
+    position: relative;
+    left: 0;
+    top: 0;
+    background-color: lightgray;
+}
+
+.fulltaskdiv {
+    width: 100%;
+    position: relative;
+    left: 0;
+    top: 0;
+    background-color: lightgray;
+}
+
+#errmsg {
+    color: red;
+    text-align: center;
+    margin-top: -20px;
+}
+
+.addtaskbutton {
+    position: relative;
+    display: block;
+    height: 34px;
+    width: 34px;
+    top: -67px;
+    right: -310px;
+    background-image: url("images/add.png");
+    background-repeat: no-repeat;
+    background-size: 34px 34px;
+    border: none;
+    background-color: white;
+}
+
+.remtaskbutton {
+    position: relative;
+    display: block;
+    height: 34px;
+    width: 34px;
+    top: -67px;
+    right: -310px;
+    background-image: url("images/delete.png");
+    background-repeat: no-repeat;
+    background-size: 34px 34px;
+    border: none;
+    background-color: white;
+}
+
+.resolvetaskbutton {
+    position: relative;
+    height: 34px;
+    width: 34px;
+    top: -101px;
+    right: -110px;
+    background-image: url("images/check.png");
+    background-repeat: no-repeat;
+    background-size: 34px 34px;
+    border: none;
+    background-color: white;
 }

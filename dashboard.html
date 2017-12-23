@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="main.css">
+    <title>User Dashboard</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" src="scripts/loginrequest.js"></script>
+    <script type="text/javascript" src="scripts/assigneventrequest.js"></script>
+    <script type="text/javascript" src="scripts/datarequest.js"></script>
+    <script type="text/javascript" src="scripts/usersession.js"></script>
+    <script type="text/javascript" src="scripts/resolvetaskrequest.js"></script>
+        <script type="text/javascript" src="scripts/unresolvetaskrequest.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script type="text/javascript" src="scripts/client.js"></script>
+</head>
+<body>
+
+    <div class="nav-wrapper">
+    <p>FRC 7308 DeepVision</p>
+    <ul>
+        <li><a href="http://7308deepvision.com">Home</a></li>
+        <li><a href="news/html">News</a></li>
+        <li><a href="sponsors.html">Sponsors</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+    </div>
+
+    <div class="contents">
+
+        <div class="maindiv" id="dashboard">
+            <br>
+            <p class="textsection">Log in to 7308 DeepVision</p>
+            <p id="errmsg"></p>
+            <form>
+                <input type="text" id="username" placeholder="Username">
+                <br><br>
+                <input type="password" id="password" placeholder="Password">
+                <br><br>
+            </form>
+            <button id="submit" class="normalbutton" onclick="buttonLogin()">Submit</button>
+        </div>
+
+    </div>
+
+</body>
+</html>
