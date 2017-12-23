@@ -17,8 +17,9 @@ function requestData(datatype, userid, secret, all, includefinished) {
 }
 
 function tasksPage(userid, secret, usersession) {
-  console.log(usersession);
   usersession.page = "tasks";
+
+  document.getElementById("dashboard").className = "dashanim";
 
   document.getElementById("dashboard").innerHTML = "";
 
@@ -49,8 +50,9 @@ function tasksPage(userid, secret, usersession) {
 }
 
 function resolvedTasksPage(userid, secret, usersession) {
-  console.log(usersession);
   usersession.page = "resolvedTasks";
+
+  document.getElementById("dashboard").className = "dashanim";
 
   document.getElementById("dashboard").innerHTML = "";
 
@@ -75,6 +77,8 @@ function resolvedTasksPage(userid, secret, usersession) {
 
 function loadDash(userid, secret, usersession) {
   usersession.page = "home";
+
+  document.getElementById("dashboard").className = "dashanim";
 
   document.getElementById("dashboard").innerHTML = "";
   var p = document.createElement("p");
@@ -117,6 +121,70 @@ function unresolveTask(taskid, userid, secret) {
   ws.send(reqjson);
 }
 
+function loadTasks(data, usersession) {
+
+  var elements = [];
+  var parents = []
+  if (data.length == 0) {
+    document.getElementById("innertaskdiv").innerHTML = "";
+    var p = document.createElement("p");
+    p.className = "textsection";
+    p.color = "darkgray";
+    p.innerHTML = "No tasks to display.";
+    p.style.marginTop = "10px";
+    p.style.marginBottom = "10px";
+    elements.push(p);
+    parents.push("innertaskdiv");
+  }
+  else if (data[0].type === "task") {
+    document.getElementById("innertaskdiv").innerHTML = "";
+    for (var i = 0; i < data.length; i++) {
+      var div = document.createElement("div");
+      div.className = "codetask";
+      div.id = "task#" + i;
+      var p = document.createElement("p");
+      p.innerHTML = data[i].contents;
+      elements.push(div);
+      parents.push("innertaskdiv");
+      elements.push(p);
+      parents.push("task#" + i);
+      if ((data[i].userid == usersession.userid || data[i].open == true) && !data[i].resolved) {
+        var button = document.createElement("button");
+        if (data[i].userid == usersession.userid) {
+          button.className = "remtaskbutton";
+        } else {
+          button.className = "addtaskbutton";
+        }
+        button.id = data[i].taskid;
+        button.onclick = function() { requestTask(this.id, usersession.userid, usersession.secret); console.log("click"); };
+        elements.push(button);
+        parents.push("task#" + i);
+
+        if (data[i].userid == usersession.userid) {
+          var resolvebutton = document.createElement("button");
+          resolvebutton.className = "resolvetaskbutton";
+          resolvebutton.id = "resolve#" + data[i].taskid;
+          resolvebutton.onclick = function() { resolveTask(parseInt(this.id.slice(-1)), usersession.userid, usersession.secret); console.log("click"); };
+          elements.push(resolvebutton);
+          parents.push("task#" + i);
+        }
+      }
+      else if (data[i].resolved) {
+        var unresolvebutton = document.createElement("button");
+        unresolvebutton.className = "addtaskbutton";
+        unresolvebutton.id = "unresolve#" + data[i].taskid;
+        unresolvebutton.onclick = function() { unresolveTask(parseInt(this.id.slice(-1)), usersession.userid, usersession.secret); console.log("click"); };
+        elements.push(unresolvebutton);
+        parents.push("task#" + i);
+      }
+    }
+  }
+  for (var i = 0; i < elements.length; i++) {
+    document.getElementById(parents[i]).appendChild(elements[i]);
+  }
+}
+
+
 var usersession = new UserSession(0, "", "home");
 
 ws.onopen = function (event) {
@@ -127,70 +195,19 @@ ws.onmessage = function (msg) {
   var data = JSON.parse(msg.data);
 
   if (Object.prototype.toString.call(data) === '[object Array]') {
-    if (data.length == 0) {
-      document.getElementById("innertaskdiv").innerHTML = "";
-      var p = document.createElement("p");
-      p.className = "textsection";
-      p.color = "darkgray";
-      p.innerHTML = "No tasks to display.";
-      p.style.marginTop = "10px";
-      p.style.marginBottom = "10px";
-      document.getElementById("innertaskdiv").appendChild(p);
-    }
-    else if (data[0].type === "task") {
-      document.getElementById("innertaskdiv").innerHTML = "";
-      for (var i = 0; i < data.length; i++) {
-        var div = document.createElement("div");
-        div.className = "codetask";
-        div.id = "task#" + i;
-        document.getElementById("innertaskdiv").appendChild(div);
-        var p = document.createElement("p");
-        p.innerHTML = data[i].contents;
-        document.getElementById("task#" + i).appendChild(p);
-        if ((data[i].userid == usersession.userid || data[i].open == true) && !data[i].resolved) {
-          var button = document.createElement("button");
-          if (data[i].userid == usersession.userid) {
-            button.className = "remtaskbutton";
-          } else {
-            button.className = "addtaskbutton";
-          }
-          button.id = data[i].taskid;
-          button.onclick = function() { requestTask(this.id, usersession.userid, usersession.secret); console.log("click"); };
-          document.getElementById("task#" + i).appendChild(button);
-
-          if (data[i].userid == usersession.userid) {
-            var resolvebutton = document.createElement("button");
-            resolvebutton.className = "resolvetaskbutton";
-            resolvebutton.id = "resolve#" + data[i].taskid;
-            resolvebutton.onclick = function() { resolveTask(parseInt(this.id.slice(-1)), usersession.userid, usersession.secret); console.log("click"); };
-            document.getElementById("task#" + i).appendChild(resolvebutton);
-          }
-        }
-        else if (data[i].resolved) {
-          var unresolvebutton = document.createElement("button");
-          unresolvebutton.className = "addtaskbutton";
-          unresolvebutton.id = "unresolve#" + data[i].taskid;
-          unresolvebutton.onclick = function() { unresolveTask(parseInt(this.id.slice(-1)), usersession.userid, usersession.secret); console.log("click"); };
-          document.getElementById("task#" + i).appendChild(unresolvebutton);
-        }
-      }
-    }
+    loadTasks(data, usersession);
+    document.getElementById("dashboard").className = "maindiv";
   }
 
   else if (data.type === "loginresponse") {
     if (data.accepted == true) {
 
-      var loggedin = data.accepted;
-      var secret = data.secret;
-      var userid = data.userid;
-      if (loggedin) {
-        usersession.userid = data.userid;
-        usersession.secret = data.secret;
-      }
+      usersession.userid = data.userid;
+      usersession.secret = data.secret;
       console.log("Logged in");
       document.getElementById("dashboard").innerHTML = "<center><img class=\"loading\" src=\"https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif\"></center>";
 
-      loadDash(userid, secret, usersession);
+      loadDash(usersession.userid, usersession.secret, usersession);
 
     } else {
       console.log("Login failed");
