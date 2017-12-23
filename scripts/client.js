@@ -1,4 +1,5 @@
-var ws = new WebSocket('ws://localhost:7308');
+var ws = new WebSocket('ws://ec2-34-216-198-44.us-west-2.compute.amazonaws.com:7308');
+console.log(ws);
 
 function buttonLogin() {
   login(document.getElementById("username").value, document.getElementById("password").value);
