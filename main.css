@@ -43,8 +43,17 @@ body {
     display: block;
     color: white;
     top: 15px;
-    left: 20px;
+    left: 70px;
     font-size: 26px;
+}
+
+.nav-wrapper img {
+    margin: 0;
+    position: fixed;
+    display: block;
+    height: 50px;
+    top: 4px;
+    left: 4px;
 }
 
 .nav-wrapper ul {
@@ -299,4 +308,12 @@ input {
 
 .dashanim div {
     background-color: white;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    width: 95%;
+    color: #9b46fc; /* old IE */
+    background-color: #9b46fc; /* Modern Browsers */
 }
