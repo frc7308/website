@@ -1,4 +1,4 @@
-var ws = new WebSocket('ws://localhost:7308');
+var ws = new WebSocket('ws://34.216.198.44:7308');
 console.log(ws);
 
 function buttonLogin() {
