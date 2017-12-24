@@ -22,7 +22,7 @@ function tasksPage(userid, secret, usersession, fade) {
   if (fade) {
     document.getElementById("dashboard").className = "dashanim";
   } else {
-    document.getElementById("dashboard").className = "dashanim-nofade";
+    document.getElementById("dashboard").className = "dashanim-quickfade";
   }
 
   document.getElementById("dashboard").innerHTML = "";
@@ -59,7 +59,7 @@ function resolvedTasksPage(userid, secret, usersession, fade) {
   if (fade) {
     document.getElementById("dashboard").className = "dashanim";
   } else {
-    document.getElementById("dashboard").className = "dashanim-nofade";
+    document.getElementById("dashboard").className = "dashanim-quickfade";
   }
 
   document.getElementById("dashboard").innerHTML = "";
@@ -89,7 +89,7 @@ function loadDash(userid, secret, usersession, fade) {
   if (fade) {
     document.getElementById("dashboard").className = "dashanim";
   } else {
-    document.getElementById("dashboard").className = "dashanim-nofade";
+    document.getElementById("dashboard").className = "dashanim-quickfade";
   }
 
   document.getElementById("dashboard").innerHTML = "";
@@ -209,7 +209,7 @@ ws.onmessage = function (msg) {
     if (document.getElementById("dashboard").className == "dashanim") {
       document.getElementById("dashboard").className = "maindiv";
     } else {
-      document.getElementById("dashboard").className = "maindiv-nofade";
+      document.getElementById("dashboard").className = "maindiv-quickfade";
     }
   }
 
