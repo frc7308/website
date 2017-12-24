@@ -43,17 +43,8 @@ body {
     display: block;
     color: white;
     top: 15px;
-    left: 70px;
+    left: 20px;
     font-size: 26px;
-}
-
-.nav-wrapper img {
-    margin: 0;
-    position: fixed;
-    display: block;
-    height: 50px;
-    top: 4px;
-    left: 4px;
 }
 
 .nav-wrapper ul {
@@ -162,6 +153,14 @@ body {
      -ms-animation: fadein 0.2s; /* Internet Explorer */
       -o-animation: fadein 0.2s; /* Opera < 12.1 */
          animation: fadein 0.2s;
+}
+
+.maindiv-nofade {
+    margin: 0 auto;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    padding: 10px;
 }
 
 @keyframes fadein {
@@ -310,10 +309,17 @@ input {
     background-color: white;
 }
 
-hr {
-    border: none;
-    height: 3px;
-    width: 95%;
-    color: #9b46fc; /* old IE */
-    background-color: #9b46fc; /* Modern Browsers */
+.dashanim-nofade {
+    color: white;
+    display: hidden;
+    opacity: 1;
+}
+
+.dashanim-nofade button {
+    color: white;
+    background-color: white;
+}
+
+.dashanim-nofade div {
+    background-color: white;
 }

@@ -1,4 +1,4 @@
-var ws = new WebSocket('ws://ec2-34-216-198-44.us-west-2.compute.amazonaws.com:7308');
+var ws = new WebSocket('ws://localhost:7308');
 console.log(ws);
 
 function buttonLogin() {
@@ -16,10 +16,14 @@ function requestData(datatype, userid, secret, all, includefinished) {
   ws.send(reqjson);
 }
 
-function tasksPage(userid, secret, usersession) {
+function tasksPage(userid, secret, usersession, fade) {
   usersession.page = "tasks";
 
-  document.getElementById("dashboard").className = "dashanim";
+  if (fade) {
+    document.getElementById("dashboard").className = "dashanim";
+  } else {
+    document.getElementById("dashboard").className = "dashanim-nofade";
+  }
 
   document.getElementById("dashboard").innerHTML = "";
 
@@ -35,13 +39,13 @@ function tasksPage(userid, secret, usersession) {
 
   var back = document.createElement("button");
   back.className = "normalbutton";
-  back.onclick = function() { loadDash(userid, secret, usersession) };
+  back.onclick = function() { loadDash(userid, secret, usersession, true) };
   back.innerHTML = "Back";
   document.getElementById("taskdiv").appendChild(back);
 
   var resolved = document.createElement("button");
   resolved.className = "normalbutton";
-  resolved.onclick = function() { resolvedTasksPage(userid, secret, usersession) };
+  resolved.onclick = function() { resolvedTasksPage(userid, secret, usersession, true) };
   resolved.innerHTML = "Resolved";
   resolved.style.marginLeft = "10px";
   document.getElementById("taskdiv").appendChild(resolved);
@@ -49,10 +53,14 @@ function tasksPage(userid, secret, usersession) {
   requestData("task", userid, secret, true, false);
 }
 
-function resolvedTasksPage(userid, secret, usersession) {
+function resolvedTasksPage(userid, secret, usersession, fade) {
   usersession.page = "resolvedTasks";
 
-  document.getElementById("dashboard").className = "dashanim";
+  if (fade) {
+    document.getElementById("dashboard").className = "dashanim";
+  } else {
+    document.getElementById("dashboard").className = "dashanim-nofade";
+  }
 
   document.getElementById("dashboard").innerHTML = "";
 
@@ -68,17 +76,21 @@ function resolvedTasksPage(userid, secret, usersession) {
 
   var back = document.createElement("button");
   back.className = "normalbutton";
-  back.onclick = function() { tasksPage(userid, secret, usersession) };
+  back.onclick = function() { tasksPage(userid, secret, usersession, true) };
   back.innerHTML = "Back";
   document.getElementById("taskdiv").appendChild(back);
 
   requestData("task", userid, secret, true, true);
 }
 
-function loadDash(userid, secret, usersession) {
+function loadDash(userid, secret, usersession, fade) {
   usersession.page = "home";
 
-  document.getElementById("dashboard").className = "dashanim";
+  if (fade) {
+    document.getElementById("dashboard").className = "dashanim";
+  } else {
+    document.getElementById("dashboard").className = "dashanim-nofade";
+  }
 
   document.getElementById("dashboard").innerHTML = "";
   var p = document.createElement("p");
@@ -98,7 +110,7 @@ function loadDash(userid, secret, usersession) {
 
   var taskbutton = document.createElement("button");
   taskbutton.className = "normalbutton";
-  taskbutton.onclick = function() { tasksPage(userid, secret, usersession) };
+  taskbutton.onclick = function() { tasksPage(userid, secret, usersession, true) };
   taskbutton.innerHTML = "See All";
   document.getElementById("taskdiv").appendChild(taskbutton);
 
@@ -126,7 +138,6 @@ function loadTasks(data, usersession) {
   var elements = [];
   var parents = []
   if (data.length == 0) {
-    document.getElementById("innertaskdiv").innerHTML = "";
     var p = document.createElement("p");
     p.className = "textsection";
     p.color = "darkgray";
@@ -137,7 +148,6 @@ function loadTasks(data, usersession) {
     parents.push("innertaskdiv");
   }
   else if (data[0].type === "task") {
-    document.getElementById("innertaskdiv").innerHTML = "";
     for (var i = 0; i < data.length; i++) {
       var div = document.createElement("div");
       div.className = "codetask";
@@ -179,11 +189,11 @@ function loadTasks(data, usersession) {
       }
     }
   }
+  document.getElementById("innertaskdiv").innerHTML = "";
   for (var i = 0; i < elements.length; i++) {
     document.getElementById(parents[i]).appendChild(elements[i]);
   }
 }
-
 
 var usersession = new UserSession(0, "", "home");
 
@@ -196,7 +206,11 @@ ws.onmessage = function (msg) {
 
   if (Object.prototype.toString.call(data) === '[object Array]') {
     loadTasks(data, usersession);
-    document.getElementById("dashboard").className = "maindiv";
+    if (document.getElementById("dashboard").className == "dashanim") {
+      document.getElementById("dashboard").className = "maindiv";
+    } else {
+      document.getElementById("dashboard").className = "maindiv-nofade";
+    }
   }
 
   else if (data.type === "loginresponse") {
@@ -207,7 +221,7 @@ ws.onmessage = function (msg) {
       console.log("Logged in");
       document.getElementById("dashboard").innerHTML = "<center><img class=\"loading\" src=\"https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif\"></center>";
 
-      loadDash(usersession.userid, usersession.secret, usersession);
+      loadDash(usersession.userid, usersession.secret, usersession, true);
 
     } else {
       console.log("Login failed");
@@ -219,16 +233,19 @@ ws.onmessage = function (msg) {
     if (data.accepted) {
       if (data.removed == false) {
         document.getElementById(data.taskid).className = "remtaskbutton";
+        if (usersession.page === "home") {
+          loadDash(usersession.userid, usersession.secret, usersession, false);
+        }
         if (usersession.page === "tasks") {
-          tasksPage(usersession.userid, usersession.secret, usersession);
+          tasksPage(usersession.userid, usersession.secret, usersession, false);
         }
       } else {
         document.getElementById(data.taskid).className = "addtaskbutton";
         if (usersession.page === "home") {
-          loadDash(usersession.userid, usersession.secret, usersession);
+          loadDash(usersession.userid, usersession.secret, usersession, false);
         }
         if (usersession.page === "tasks") {
-          tasksPage(usersession.userid, usersession.secret, usersession);
+          tasksPage(usersession.userid, usersession.secret, usersession, false);
         }
       }
     }
@@ -237,13 +254,13 @@ ws.onmessage = function (msg) {
   else if (data.type === "resolvetaskresponse" || data.type === "unresolvetaskresponse") {
     if (data.accepted) {
       if (usersession.page === "home") {
-        loadDash(usersession.userid, usersession.secret, usersession);
+        loadDash(usersession.userid, usersession.secret, usersession, false);
       }
       if (usersession.page === "tasks") {
-        tasksPage(usersession.userid, usersession.secret, usersession);
+        tasksPage(usersession.userid, usersession.secret, usersession, false);
       }
       if (usersession.page === "resolvedTasks") {
-        resolvedTasksPage(usersession.userid, usersession.secret, usersession);
+        resolvedTasksPage(usersession.userid, usersession.secret, usersession, false);
       }
     }
   }
