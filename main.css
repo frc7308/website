@@ -360,3 +360,14 @@ input {
 .dashanim-quickfade div {
     background-color: white;
 }
+
+.onepager {
+    margin: 0 auto;
+    padding: 7px 20px 140px 20px;
+    width: 90%;
+    background-color: lightgray;
+    border-radius: 7px;
+    font-size: 25px;
+    font-family: 'Open Sans', sans-serif;
+    position: relative;
+}
