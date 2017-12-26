@@ -204,6 +204,8 @@ ws.onopen = function (event) {
 ws.onmessage = function (msg) {
   var data = JSON.parse(msg.data);
 
+
+  
   if (Object.prototype.toString.call(data) === '[object Array]') {
     loadTasks(data, usersession);
     if (document.getElementById("dashboard").className == "dashanim") {
