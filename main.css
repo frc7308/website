@@ -157,6 +157,7 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     text-align: center;
     padding: 10px;
+    margin-bottom: 1000px;
     -webkit-animation: fadein 0.2s; /* Safari, Chrome and Opera > 12.1 */
     -moz-animation: fadein 0.2s; /* Firefox < 16 */
      -ms-animation: fadein 0.2s; /* Internet Explorer */
@@ -215,7 +216,7 @@ body {
 }
 
 .normalbutton {
-    width: 100px;
+    width: 150px;
     height: 40px;
     font-size: 20px;
     margin-bottom: 20px;
@@ -361,13 +362,10 @@ input {
     background-color: white;
 }
 
-.onepager {
-    margin: 0 auto;
-    padding: 7px 20px 140px 20px;
-    width: 90%;
-    background-color: lightgray;
-    border-radius: 7px;
-    font-size: 25px;
-    font-family: 'Open Sans', sans-serif;
+#usernametask {
     position: relative;
+    display: block;
+    top: -60px;
+    right: -240px;
+    font-size: 16px;
 }

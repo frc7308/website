@@ -5,14 +5,35 @@ function buttonLogin() {
   login(document.getElementById("username").value, document.getElementById("password").value);
 }
 
+function buttonAddUser(usersession) {
+  if (document.getElementById("password").value === document.getElementById("confirmpassword").value)
+    addUser(usersession.userid, usersession.secret, document.getElementById("username").value, document.getElementById("password").value);
+  else
+    document.getElementById("errmsg").innerHTML = "Passwords do not match. Please try again.";
+}
+
+function buttonAddTask(usersession) {
+  if (document.getElementById("taskname").value != "")
+    addTask(usersession.userid, usersession.secret, "general", document.getElementById("taskname").value);
+}
+
 function login(username, password) {
   var reqjson = JSON.stringify(new LoginRequest(username, password));
   ws.send(reqjson);
 }
 
+function addUser(userid, secret, username, password) {
+  var reqjson = JSON.stringify(new AddUserRequest(userid, secret, username, password));
+  ws.send(reqjson);
+}
+
+function addTask(userid, secret, tasktype, contents) {
+  var reqjson = JSON.stringify(new AddTaskRequest(userid, secret, tasktype, contents));
+  ws.send(reqjson);
+}
+
 function requestData(datatype, userid, secret, all, includefinished) {
   var reqjson = JSON.stringify(new DataRequest(datatype, userid, secret, all, includefinished));
-  console.log(reqjson);
   ws.send(reqjson);
 }
 
@@ -22,7 +43,7 @@ function tasksPage(userid, secret, usersession, fade) {
   if (fade) {
     document.getElementById("dashboard").className = "dashanim";
   } else {
-    document.getElementById("dashboard").className = "dashanim-quickfade";
+    document.getElementById("dashboard").className = "dashanim-nofade";
   }
 
   document.getElementById("dashboard").innerHTML = "";
@@ -50,6 +71,12 @@ function tasksPage(userid, secret, usersession, fade) {
   resolved.style.marginLeft = "10px";
   document.getElementById("taskdiv").appendChild(resolved);
 
+  var addtask = document.createElement("div");
+  addtask.id = "addtask";
+  addtask.innerHTML = "<br><p class=\"textsection\">Add a task</p><p id=\"errmsg\"></p><input type=\"text\" id=\"taskname\" placeholder=\"Task name\" style=\"margin-right: 10px\"><button id=\"addthis\" class=\"normalbutton\">Add</button>";
+  document.getElementById("taskdiv").appendChild(addtask);
+  document.getElementById("addthis").onclick = function() { buttonAddTask(usersession) }
+
   requestData("task", userid, secret, true, false);
 }
 
@@ -59,7 +86,7 @@ function resolvedTasksPage(userid, secret, usersession, fade) {
   if (fade) {
     document.getElementById("dashboard").className = "dashanim";
   } else {
-    document.getElementById("dashboard").className = "dashanim-quickfade";
+    document.getElementById("dashboard").className = "dashanim-nofade";
   }
 
   document.getElementById("dashboard").innerHTML = "";
@@ -83,13 +110,37 @@ function resolvedTasksPage(userid, secret, usersession, fade) {
   requestData("task", userid, secret, true, true);
 }
 
+function addUserPage(userid, secret, usersession) {
+  usersession.page = "addUserPage";
+  document.getElementById("dashboard").innerHTML = "<br><p class=\"textsection\">Add a user to 7308 DeepVision</p><p id=\"errmsg\"></p><form><input type=\"text\" id=\"username\" placeholder=\"Username\"><br><br><input type=\"password\" id=\"password\" placeholder=\"Password\"><br><br><input type=\"password\" id=\"confirmpassword\" placeholder=\"Confirm Password\"><br><br></form><button id=\"submit\" class=\"normalbutton\">Submit</button>";
+  document.getElementById("submit").onclick = function() { buttonAddUser(usersession) }
+  var back = document.createElement("button");
+  back.className = "normalbutton";
+  back.onclick = function() { loadDash(userid, secret, usersession, true) };
+  back.innerHTML = "Back";
+  back.style.marginLeft = "10px";
+  document.getElementById("dashboard").appendChild(back);
+}
+
+function userAddedPage(userid, secret, usersession) {
+  usersession.page = "userAddedPage";
+  document.getElementById("dashboard").innerHTML = "<br><p class=\"textsection\">User Successfully Added</p><button id=\"another\" class=\"normalbutton\" width=\"500px\">Add Another</button>";
+  document.getElementById("another").onclick = function() { addUserPage(userid, secret, usersession, false) };
+  var back = document.createElement("button");
+  back.className = "normalbutton";
+  back.onclick = function() { loadDash(userid, secret, usersession, true) };
+  back.innerHTML = "Back";
+  back.style.marginLeft = "10px";
+  document.getElementById("dashboard").appendChild(back);
+}
+
 function loadDash(userid, secret, usersession, fade) {
   usersession.page = "home";
 
   if (fade) {
     document.getElementById("dashboard").className = "dashanim";
   } else {
-    document.getElementById("dashboard").className = "dashanim-quickfade";
+    document.getElementById("dashboard").className = "dashanim-nofade";
   }
 
   document.getElementById("dashboard").innerHTML = "";
@@ -113,6 +164,16 @@ function loadDash(userid, secret, usersession, fade) {
   taskbutton.onclick = function() { tasksPage(userid, secret, usersession, true) };
   taskbutton.innerHTML = "See All";
   document.getElementById("taskdiv").appendChild(taskbutton);
+
+  if (usersession.userid == 0) {
+    var adduserbutton = document.createElement("button");
+    adduserbutton.className = "normalbutton";
+    adduserbutton.onclick = function() { addUserPage(userid, secret, usersession, false) };
+    adduserbutton.innerHTML = "Add User";
+    adduserbutton.style.marginTop = "20px";
+    adduserbutton.style.marginBottom = "5px";
+    document.getElementById("dashboard").appendChild(adduserbutton);
+  }
 
   requestData("task", userid, secret, false);
 }
@@ -187,6 +248,13 @@ function loadTasks(data, usersession) {
         elements.push(unresolvebutton);
         parents.push("task#" + i);
       }
+      else {
+        var username = document.createElement("p");
+        username.id = "usernametask";
+        username.innerHTML = data[i].username;
+        elements.push(username);
+        parents.push("task#" + i);
+      }
     }
   }
   document.getElementById("innertaskdiv").innerHTML = "";
@@ -203,15 +271,14 @@ ws.onopen = function (event) {
 
 ws.onmessage = function (msg) {
   var data = JSON.parse(msg.data);
+  console.log(data);
 
-
-  
   if (Object.prototype.toString.call(data) === '[object Array]') {
     loadTasks(data, usersession);
     if (document.getElementById("dashboard").className == "dashanim") {
       document.getElementById("dashboard").className = "maindiv";
     } else {
-      document.getElementById("dashboard").className = "maindiv-quickfade";
+      document.getElementById("dashboard").className = "maindiv-nofade";
     }
   }
 
@@ -264,6 +331,20 @@ ws.onmessage = function (msg) {
       if (usersession.page === "resolvedTasks") {
         resolvedTasksPage(usersession.userid, usersession.secret, usersession, false);
       }
+    }
+  }
+
+  else if (data.type === "adduserresponse") {
+    if (data.accepted) {
+      userAddedPage(usersession.userid, usersession.secret, usersession);
+    } else {
+      document.getElementById("errmsg").innerHTML = "Error: Request not valid (username may be taken)";
+    }
+  }
+
+  else if (data.type === "addtaskresponse") {
+    if (data.accepted) {
+      tasksPage(usersession.userid, usersession.secret, usersession, true);
     }
   }
 };
