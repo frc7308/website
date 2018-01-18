@@ -369,3 +369,43 @@ input {
     right: -240px;
     font-size: 16px;
 }
+
+.onepager {
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 150px;
+    width: calc(100% - 550px);
+    font-family: 'Raleway', sans-serif;
+    font-size: 30px;
+}
+
+.aboutsideimgwrapper {
+    position: absolute;
+    right: 0;
+    width: 500px;
+}
+
+.aboutsideimg {
+    width: 500px;
+}
+
+#aboutimg2 {
+    padding-top: 690px;
+}
+
+#aboutimg3 {
+    padding-top: 1260px;
+}
+
+#aboutimg4 {
+    padding-top: 1925px;
+}
+
+#aboutimg5 {
+    padding-top: 2605px;
+    margin-bottom: 130px;
+}
