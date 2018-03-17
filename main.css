@@ -409,3 +409,12 @@ input {
     padding-top: 2605px;
     margin-bottom: 130px;
 }
+
+.sponsorline {
+    padding: 0;
+    text-align: center;
+}
+.sponsors img {
+    max-width: 500px;
+    padding: 20px;
+}
