@@ -4,36 +4,85 @@
     <link rel="stylesheet" href="main.css">
     <title>FRC 7308 DeepVision</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="icon" href="images/icon.ico">
+    <script src="jquery.min.js"></script>
+    <script src="slideshow.js"></script>
 </head>
 <body>
-
-    <div class="nav-wrapper">
-    <a href="http://7308deep.vision"><img src="images/DV8-Icon.png" alt="DV8 Logo Icon"/></a>
-    <p>FRC 7308 DeepVision</p>
-    <ul>
-        <li><a href="http://7308deepvision.com">Home</a></li>
-        <li><a href="news">News</a></li>
-        <li><a href="sponsors">Sponsors</a></li>
-        <li><a href="about">The Team</a></li>
-        <li><a href="contact">Contact</a></li>
-        <li><a href="dashboard">Dashboard</a></li>
-    </ul>
+    <div id="navigation" class="nav-wrapper">
+        <a href="http://7308deep.vision"><img src="images/DV8-Icon.png" alt="DV8 Logo Icon"/></a>
+        <p>FRC 7308 DeepVision</p>
+        <ul>
+            <li><a href="http://7308deepvision.com">Home</a></li>
+            <li><a href="about">Meet The Team</a></li>
+            <li><a href="news">News</a></li>
+            <li><a href="sponsors">Sponsors</a></li>
+            <li><a href="contact">Contact</a></li>
+        </ul>
     </div>
 
     <div class="contents">
 
-        <div class="headerimgwrapper"><img class="headerimage" src="images/tooltraining.JPG"></div>
-        <div class="headerimgbuffer"></div>
-
-        <div class="largetextsection">
-            <p>7308 DeepVision is a rookie FIRST Robotics team competing in the FRC 2018 season. We have cultivated a rich learning environment in which teenagers have the opportunity to learn about, design, and build industrial-sized robots with peers.</p>
+        <div class="topbar">
+            <div id="top-slideshow">
+                <div>
+                    <img id="topBarSlideshowImagePreload" src="#" width="100%">
+                    <img id="topBarSlideshowQueueImage" src="#" width="100%">
+                </div>
+            </div>
+            <div id="cornerBar">
+                <a href="https://twitter.com/7308deepvision"><img class="socialIcon" src="images/socialicons/twitter.png"></a>
+                <a href="https://www.youtube.com/channel/UC8r1NY1kLzFIFeH30nx_p4g"><img class="socialIcon" src="images/socialicons/youtube.png"></a>
+                <a href="https://github.com/frc7308"><img class="socialIcon" src="images/socialicons/github.png"></a>
+            </div>
         </div>
 
-        <div class="textsection">
-            <p>You can visit our website at <a href="http://7308deepvision.com">7308deepvision.com</a> or use our short URL <a href="http://7308deep.vision">7308deep.vision</a></p>
+        <div class="contentSection">
+            <img class="normalImg" src="images/collage/col10.jpg">
+            <div class="rightTextBox">
+                <p class="textBoxTitle">What is DeepVision?</p>
+                <p class="textBoxText">DeepVision (Also known as DV8 or Team 7308) is a community based high school robotics team located in Silicon Valley. With over 15 students from 5 schools, DeepVision provides hands-on experience for budding engineers through the FIRST Robotics Competition (FRC). In FRC, teams are given a unique challenge each year that is played in a sports-like game, and are given 6 weeks to design, build, and program a working industrial grade robot to compete with. 2019 will be DeepVision's second season competing in FRC. You can learn more about FRC <a href="https://www.firstinspires.org/robotics/frc">here</a>.</p>
+            </div>
         </div>
 
+        <hr>
+
+        <div class="contentSection">
+            <div id="slideshow-wrapper">
+                <button id="button-left" onclick="changeSlide(-1)">&#10094;</button>
+                <button id="button-right" onclick="changeSlide(1)">&#10095;</button>
+                <div id="slideshow">
+                    <div>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/94kUdd1l6nI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/EOpnBV8SsVU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/zuuEPbUsO3M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="rightTextBox">
+                <p class="textBoxTitle">2018 Recap</p>
+                <p class="textBoxText">With both the 2018 season and offseason having come to a close, our first robot, Dave, has been retired. Throughout the year, we went to 3 competitions, played over 30 matches, and even became a team captain at our most recent competition, making it to semi-finals. Here are some videos showcasing the robot and the team througout our rookie year. We will be building a new robot starting Janurary 5th, when a new FRC game will be announced by FIRST.</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="contentSection">
+            <div class="centerTextBox">
+                <p class="textBoxTitle">Website Updates</p>
+                <p class="textBoxText">Welcome to our brand new website! With the latest update, the look and feel of the site has been greatly improved, and it now supports smaller screens. In addition, a mobile-specific version is in the works and will be deployed soon. If you find any bugs or have any questions about the website, please email 7308deepvision@gmail.com and we will get back to you.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Copyright © 2018, 7308 DeepVision</p>
+			<p>To report website errors, contact us at 7308deepvision@gmail.com</p>
+        </div>
     </div>
 
 </body>
