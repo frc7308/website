@@ -35,7 +35,7 @@ function fadeIn() {
 
 window.onload = function() {
     document.getElementById("topBarSlideshowImagePreload").src = "images/collage/" + topBarSlideImages[topBarSlideIndex];
-    setTimeout(fadeIn, 1);
+    setTimeout(fadeIn, 10);
     document.getElementById("topBarSlideshowQueueImage").src = "images/collage/" + topBarSlideImages[topBarSlideIndex + 1];
     setInterval(topBarChangeSlide, 10000);
 };
