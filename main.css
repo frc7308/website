@@ -519,12 +519,18 @@ input {
 
 #slideshow-wrapper #button-left {
     left: -40px;
+    background-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 0.25), #fff);
+    background-image: -moz-linear-gradient(right, rgba(0, 0, 0, 0.25), #fff);
+    background-image: -o-linear-gradient(right, rgba(0, 0, 0, 0.25), #fff);
     background-image: linear-gradient(to left, rgba(0, 0, 0, 0.25), #fff);
     text-align: right;
 }
 
 #slideshow-wrapper #button-right {
     right: -40px;
+    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.25), #fff);
+    background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0.25), #fff);
+    background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.25), #fff);
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.25), #fff);
     text-align: left;
 }
@@ -543,6 +549,7 @@ input {
 #topBarSlideshowQueueImage {
     opacity: 0;
     transition: opacity 0.35s linear;
+    top: 0;
 }
 
 button:focus {
@@ -560,9 +567,9 @@ button:focus {
     padding: 25px 30px;
     position: relative;
     background-color: #e6e6e6;
-    box-shadow: 
-        inset 0px 12px 8px -10px #CCC,
-        inset 0px -12px 8px -10px #CCC; 
+    box-shadow:
+        inset 0px 12px 8px -10px #ccc,
+        inset 0px -12px 8px -10px #ccc; 
 }
 
 .rightTextBox {
@@ -644,5 +651,66 @@ hr {
     font-family: 'Roboto', sans-serif;
     font-size: 32px;
     font-weight: bold;
-    padding-top: 50px;
+    padding-top: 30px;
+}
+
+.sponsorTier {
+    width: 100%;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+.tierName {
+    font-size: 30px;
+    padding: 20px 0px 0px 30px;
+    margin: 0;
+}
+
+.tierPrice {
+    font-size: 20px;
+    margin: 0;
+    padding: 5px 0px 0px 30px;
+    color: #d9d9d9;
+}
+
+#goldTier {
+    background-image: -webkit-linear-gradient(left, #c1973e, #e5ce9a);
+    background-image: -moz-linear-gradient(left, #c1973e, #e5ce9a);
+    background-image: -o-linear-gradient(left, #c1973e, #e5ce9a);
+    background-image: linear-gradient(to right, #c1973e, #e5ce9a);
+}
+
+#purpleTier {
+    background-image: -webkit-linear-gradient(left, #cc66ff, #e6b3ff);
+    background-image: -moz-linear-gradient(left, #cc66ff, #e6b3ff);
+    background-image: -o-linear-gradient(left, #cc66ff, #e6b3ff);
+    background-image: linear-gradient(to right, #cc66ff, #e6b3ff);
+}
+
+#amethystTier {
+    background-image: url("images/amethyst.jpg");
+}
+
+#teamSponsorTier {
+    background-image: url("images/carbonfiber.jpg");
+    background-size: 20px 20px;
+}
+
+.sponsorTier ul {
+    padding: 20px 70px;
+    margin: 0;
+    font-size: 18px;
+}
+
+.sponsorTier li {
+    padding: 2px;
+}
+
+.sponsorTier li ul {
+    padding: 6px 60px;
+}
+
+#sponsorTiers {
+    box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.5);
 }
